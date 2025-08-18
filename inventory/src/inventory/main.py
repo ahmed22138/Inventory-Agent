@@ -92,4 +92,4 @@ async def main(user_input: str):
 
 def start():
     # Example prompt
-    asyncio.run(main("Add 5 HP Laptops  &  3 Iphone in the inventory. Then delete 2 HP Laptops & 1 Iphone. Finally, list the inventory."))
+    asyncio.run(main("Add 5 HP Laptops & 3 Iphone in the inventory. Then delete 2 HP Laptops & 1 Iphone. Finally, list the inventory."))

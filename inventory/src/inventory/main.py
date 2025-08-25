@@ -10,7 +10,7 @@ load_dotenv()
 # Get API Key
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
-    raise EnvironmentError("❌ GEMINI_API_KEY environment variable is not set. Please add it to your .env file.")
+    raise EnvironmentError(" GEMINI_API_KEY environment variable is not set. Please add it to your .env file.")
 
 # Disable tracing
 set_tracing_disabled(disabled=True)
@@ -36,28 +36,28 @@ inventory = {}
 async def add_item(name: str, quantity: int) -> str:
     """Add item with given quantity to inventory."""
     inventory[name] = inventory.get(name, 0) + quantity
-    return f"✅ Added {quantity} x {name}"
+    return f" Added {quantity} x {name}"
 
 
 @function_tool
 async def delete_item(name: str, quantity: int = None) -> str:
     """Delete an item or reduce its quantity from inventory."""
     if name not in inventory:
-        return f"⚠️ {name} not found in inventory."
+        return f"{name} not found in inventory."
 
     if quantity is None or quantity >= inventory[name]:
         del inventory[name]
-        return f"🗑️ Deleted item {name}"
+        return f"Deleted item {name}"
     else:
         inventory[name] -= quantity
-        return f"➖ Removed {quantity} x {name} (Remaining: {inventory[name]})"
+        return f"Removed {quantity} x {name} (Remaining: {inventory[name]})"
 
 
 @function_tool
 async def list_inventory() -> str:
     """List all inventory items with quantities."""
     if not inventory:
-        return "📦 Inventory is empty."
+        return "Inventory is empty."
     return "\n".join([f"- {item} : {qty}" for item, qty in inventory.items()])
 
 
@@ -69,13 +69,13 @@ agent = Agent(
     You are an Inventory Manager. 
     Use tools to add, delete, or list inventory items. 
 
-    ✅ Whenever you add or delete an item, ALWAYS call 'list_inventory' afterwards.  
+     Whenever you add or delete an item, ALWAYS call 'list_inventory' afterwards.  
 
     In your final output, clearly mention:
     - What action was performed (added / deleted / updated).
     - The updated inventory list with item names and quantities.  
 
-    🔹 Keep item names exactly as they were added (e.g., 'HP Laptop', 'Dell Laptop').
+     Keep item names exactly as they were added (e.g., 'HP Laptop', 'Dell Laptop').
     """,
     tools=[add_item, delete_item, list_inventory],
     model=model,
